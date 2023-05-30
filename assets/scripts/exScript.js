@@ -368,6 +368,7 @@ carouselItems.forEach(function (carouselItem) {
   
   // Detect pinch/zoom gesture
   carouselItem.addEventListener('pointerdown', event => {
+    event.preventDefault()
     if (event.pointerType === 'touch' && event.pointers.length === 2) {
       const distance = Math.hypot(
         event.pointers[0].clientX - event.pointers[1].clientX,
@@ -376,6 +377,7 @@ carouselItems.forEach(function (carouselItem) {
       let newContainer = document.querySelector("div.active .image-hotspot")
       let scale = getScale(newContainer);
       carouselItem.addEventListener('pointermove', event => {
+        event.preventDefault()
         if (event.pointerType === 'touch' && event.pointers.length === 2) {
           const newDistance = Math.hypot(
             event.pointers[0].clientX - event.pointers[1].clientX,
