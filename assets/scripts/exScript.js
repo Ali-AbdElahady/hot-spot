@@ -320,78 +320,78 @@ carouselItems.forEach(function (carouselItem) {
 });
 
 
-// let finger1;
-// let lastTap = 0;
-// let zoomLevel = 0; // 0 for default, 1 for 50% zoom, 2 for 75% zoom
-// const zoomScales = [1.1, 1.4, 1.79]; // zoom scales for each level
-
-// carouselItems.forEach(function (carouselItem) {
-//   carouselItem.addEventListener('touchstart', handleTouchStart, false);
-//   carouselItem.addEventListener('touchend', handleTouchEnd, false);
-
-//   function handleTouchStart(event) {
-//     const currentTime = new Date().getTime();
-//     const tapLength = currentTime - lastTap;
-//     if (tapLength < 500 && tapLength > 0) {
-//       event.preventDefault();
-//       finger1 = event.touches[0];
-//       handleDoubleTap(event);
-//     }
-//     lastTap = currentTime;
-//   }
-
-//   function handleTouchEnd(event) {
-//     // Handle touch end event
-//   }
-
-//   function handleDoubleTap(event) {
-//     if (finger1) {
-//       const finger2 = event.changedTouches[0];
-
-//       zoomLevel = (zoomLevel + 1) % 3; // cycle through 0, 1, 2
-//       const scale = zoomScales[zoomLevel];
-
-//       // carouselItem.style.transform = `scale(${scale})`;
-//       var x = (parseFloat(carouselItem.getAttribute('data-x')) || 0)
-//       var y = (parseFloat(carouselItem.getAttribute('data-y')) || 0)
-//       carouselItem.style.transform = 'scale(' + scale + ') translate(' + x + 'px, ' + y + 'px)'
-//       if (zoomLevel === 0) {
-//         // Zoomed out completely, reset finger1
-//         finger1 = null;
-//       }
-//     }
-//   }
-// })
-
+let finger1;
+let lastTap = 0;
+let zoomLevel = 0; // 0 for default, 1 for 50% zoom, 2 for 75% zoom
+const zoomScales = [1.1, 1.4, 1.79]; // zoom scales for each level
 
 carouselItems.forEach(function (carouselItem) {
-  
-  // Detect pinch/zoom gesture
-  carouselItem.addEventListener('pointerdown', event => {
-    event.preventDefault()
-    if (event.pointerType === 'touch' && event.pointers.length === 2) {
-      const distance = Math.hypot(
-        event.pointers[0].clientX - event.pointers[1].clientX,
-        event.pointers[0].clientY - event.pointers[1].clientY
-      );
-      let newContainer = document.querySelector("div.active .image-hotspot")
-      let scale = getScale(newContainer);
-      carouselItem.addEventListener('pointermove', event => {
-        event.preventDefault()
-        if (event.pointerType === 'touch' && event.pointers.length === 2) {
-          const newDistance = Math.hypot(
-            event.pointers[0].clientX - event.pointers[1].clientX,
-            event.pointers[0].clientY - event.pointers[1].clientY
-          );
-          scale *= newDistance / distance;
-          distance = newDistance;
-          // Apply scale to element
-          carouselItem.style.transform = `scale(${scale})`;
-        }
-      });
+  carouselItem.addEventListener('touchstart', handleTouchStart, false);
+  carouselItem.addEventListener('touchend', handleTouchEnd, false);
+
+  function handleTouchStart(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (tapLength < 500 && tapLength > 0) {
+      event.preventDefault();
+      finger1 = event.touches[0];
+      handleDoubleTap(event);
     }
-  });
+    lastTap = currentTime;
+  }
+
+  function handleTouchEnd(event) {
+    // Handle touch end event
+  }
+
+  function handleDoubleTap(event) {
+    if (finger1) {
+      const finger2 = event.changedTouches[0];
+
+      zoomLevel = (zoomLevel + 1) % 3; // cycle through 0, 1, 2
+      const scale = zoomScales[zoomLevel];
+
+      // carouselItem.style.transform = `scale(${scale})`;
+      var x = (parseFloat(carouselItem.getAttribute('data-x')) || 0)
+      var y = (parseFloat(carouselItem.getAttribute('data-y')) || 0)
+      carouselItem.style.transform = 'scale(' + scale + ') translate(' + x + 'px, ' + y + 'px)'
+      if (zoomLevel === 0) {
+        // Zoomed out completely, reset finger1
+        finger1 = null;
+      }
+    }
+  }
 })
+
+
+// carouselItems.forEach(function (carouselItem) {
+  
+//   // Detect pinch/zoom gesture
+//   carouselItem.addEventListener('pointerdown', event => {
+//     event.preventDefault()
+//     if (event.pointerType === 'touch' && event.pointers.length === 2) {
+//       const distance = Math.hypot(
+//         event.pointers[0].clientX - event.pointers[1].clientX,
+//         event.pointers[0].clientY - event.pointers[1].clientY
+//       );
+//       let newContainer = document.querySelector("div.active .image-hotspot")
+//       let scale = getScale(newContainer);
+//       carouselItem.addEventListener('pointermove', event => {
+//         event.preventDefault()
+//         if (event.pointerType === 'touch' && event.pointers.length === 2) {
+//           const newDistance = Math.hypot(
+//             event.pointers[0].clientX - event.pointers[1].clientX,
+//             event.pointers[0].clientY - event.pointers[1].clientY
+//           );
+//           scale *= newDistance / distance;
+//           distance = newDistance;
+//           // Apply scale to element
+//           carouselItem.style.transform = `scale(${scale})`;
+//         }
+//       });
+//     }
+//   });
+// })
 
 
 
